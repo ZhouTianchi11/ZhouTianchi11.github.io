@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tianchi Zhou | 周天池</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─── */
+:root{
+  --bg:#F7F5F0;--bg2:#EDEAE2;--ink:#1A1814;--ink2:#5C5750;--ink3:#9A9389;
+  --accent:#2D5A3D;--accent2:#4A8C62;--al:#E8F2EC;
+  --gold:#C4933A;--gl:#FBF3E2;
+  --bd:rgba(26,24,20,.12);--bd2:rgba(26,24,20,.06);
+  --card:#fff;--r:2px;--rl:6px;--t:.25s cubic-bezier(.4,0,.2,1);
+}
+[data-theme="dark"]{
+  --bg:#141210;--bg2:#1E1C18;--ink:#F0EDE6;--ink2:#A09890;--ink3:#6A6460;
+  --accent:#5FAD7A;--accent2:#7DC896;--al:#152219;
+  --gold:#D4A550;--gl:#1E1A0E;
+  --bd:rgba(240,237,230,.12);--bd2:rgba(240,237,230,.06);--card:#1E1C18;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Lora',Georgia,serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.75;transition:background var(--t),color var(--t)}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:var(--bg);border-bottom:.5px solid var(--bd);
+  padding:0 2rem;height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background var(--t);
+}
+.nav-brand{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);text-decoration:none;letter-spacing:-.02em}
+.nav-brand span{color:var(--accent)}
+.nav-r{display:flex;align-items:center;gap:8px}
+.nav-links{display:flex}
+.nav-links a{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink2);text-decoration:none;padding:6px 12px;border-radius:var(--r);
+  transition:color var(--t),background var(--t);white-space:nowrap;
+}
+.nav-links a:hover{color:var(--ink);background:var(--bg2)}
+.lang-btn{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--al);color:var(--accent);border:.5px solid var(--accent);
+  border-radius:var(--r);padding:5px 12px;cursor:pointer;transition:all var(--t);
+}
+.lang-btn:hover{background:var(--accent);color:#fff}
+.theme-btn{
+  background:none;border:.5px solid var(--bd);border-radius:var(--r);
+  width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--ink2);font-size:14px;transition:all var(--t);
+}
+.theme-btn:hover{color:var(--ink);background:var(--bg2)}
+
+/* ─── HERO ─── */
+.hero{
+  padding:120px 2rem 80px;max-width:1000px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 340px;gap:60px;align-items:center;
+  animation:fadeUp .8s cubic-bezier(.4,0,.2,1) both;
+}
+@media(max-width:760px){.hero{grid-template-columns:1fr;gap:40px;padding:100px 1rem 60px}}
+
+.hero-left{}
+.hero-tag{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:12px;
+}
+.hero-tag::after{content:'';display:block;height:.5px;width:48px;background:var(--accent);opacity:.5}
+h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(40px,6vw,72px);
+  line-height:1.05;letter-spacing:-.02em;margin-bottom:20px;color:var(--ink);
+}
+h1 em{color:var(--accent);font-style:italic}
+.hero-sub{font-size:15px;color:var(--ink2);max-width:480px;margin-bottom:28px;line-height:1.8}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.btn{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:9px 18px;border-radius:var(--r);text-decoration:none;
+  transition:all var(--t);cursor:pointer;border:none;display:inline-flex;align-items:center;gap:6px;
+}
+.btn-p{background:var(--accent);color:#fff}
+.btn-p:hover{background:var(--accent2);transform:translateY(-1px)}
+.btn-o{background:transparent;color:var(--ink);border:.5px solid var(--bd)}
+.btn-o:hover{background:var(--bg2)}
+.btn-dl{background:var(--gl);color:var(--gold);border:.5px solid var(--gold)}
+.btn-dl:hover{background:var(--gold);color:#fff}
+
+/* resume buttons row */
+.resume-row{display:flex;gap:8px;flex-wrap:wrap}
+
+/* META STRIP */
+.hero-meta{
+  padding-top:24px;border-top:.5px solid var(--bd);
+  display:flex;gap:32px;flex-wrap:wrap;
+}
+.hero-meta-item .lbl{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:3px;
+}
+.hero-meta-item .val{font-size:13px;color:var(--ink2)}
+
+/* ─── PHOTO CAROUSEL ─── */
+.carousel{
+  position:relative;width:100%;aspect-ratio:3/4;
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,.15);
+}
+.carousel-track{
+  display:flex;width:100%;height:100%;
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
+}
+.carousel-slide{
+  min-width:100%;height:100%;flex-shrink:0;
+}
+.carousel-slide img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  display:block;
+}
+.carousel-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,.8);backdrop-filter:blur(4px);
+  border:none;border-radius:50%;width:36px;height:36px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--ink);transition:all var(--t);z-index:2;
+}
+.carousel-btn:hover{background:#fff;transform:translateY(-50%) scale(1.05)}
+.carousel-btn.prev{left:10px}
+.carousel-btn.next{right:10px}
+.carousel-dots{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  display:flex;gap:6px;
+}
+.carousel-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.5);border:none;cursor:pointer;
+  transition:background var(--t),transform var(--t);padding:0;
+}
+.carousel-dot.active{background:#fff;transform:scale(1.3)}
+
+/* ─── SECTIONS ─── */
+section{padding:80px 2rem}
+.section-inner{max-width:900px;margin:0 auto}
+.section-label{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:40px;display:flex;align-items:center;gap:16px;
+}
+.section-label::before{content:attr(data-num);color:var(--accent);font-size:10px}
+.alt-bg{background:var(--bg2)}
+
+/* ─── EDU ─── */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:600px){.edu-grid{grid-template-columns:1fr}}
+.edu-card{
+  background:var(--card);border:.5px solid var(--bd);border-radius:var(--rl);
+  padding:24px 28px;transition:border-color var(--t);position:relative;overflow:hidden;
+}
+.edu-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
+.edu-card:hover{border-color:var(--accent)}
+.edu-school{font-family:'DM Serif Display',serif;font-size:17px;color:var(--ink);margin-bottom:5px}
+.edu-degree{font-size:13px;color:var(--ink2);margin-bottom:14px;line-height:1.5}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;padding:3px 8px;border-radius:var(--r);background:var(--bg2);color:var(--ink2)}
+.tag-a{background:var(--al);color:var(--accent)}
+.tag-g{background:var(--gl);color:var(--gold)}
+
+/* ─── EXP ─── */
+.exp-item{display:grid;grid-template-columns:160px 1fr;gap:0 36px;padding:28px 0;border-bottom:.5px solid var(--bd2)}
+.exp-item:last-child{border-bottom:none}
+@media(max-width:600px){.exp-item{grid-template-columns:1fr;gap:10px}}
+.exp-period{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);line-height:1.6;padding-top:2px;letter-spacing:.04em}
+.exp-title{font-family:'DM Serif Display',serif;font-size:17px;color:var(--ink);margin-bottom:3px}
+.exp-co{font-size:13px;color:var(--accent2);margin-bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.exp-ind{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);background:var(--bg2);padding:2px 7px;border-radius:var(--r)}
+.exp-bullets{list-style:none}
+.exp-bullets li{font-size:13px;color:var(--ink2);line-height:1.7;padding:3px 0 3px 14px;position:relative}
+.exp-bullets li::before{content:'—';position:absolute;left:0;color:var(--accent);font-size:11px}
+
+/* ─── PROJECTS ─── */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+
+.proj-card{
+  background:var(--card);border:.5px solid var(--bd);border-radius:var(--rl);
+  padding:0;display:flex;flex-direction:column;
+  transition:border-color var(--t),transform var(--t);overflow:hidden;
+}
+.proj-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+
+.proj-card-top{
+  padding:22px 22px 16px;
+  border-bottom:.5px solid var(--bd2);
+  display:flex;flex-direction:column;gap:10px;
+  flex:1;
+}
+.proj-card-header{display:flex;justify-content:space-between;align-items:flex-start}
+.proj-icon{width:38px;height:38px;background:var(--al);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.proj-period{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.05em;text-align:right}
+.proj-title{font-family:'DM Serif Display',serif;font-size:16px;color:var(--ink);line-height:1.3}
+
+/* key-value highlights */
+.proj-highlights{display:flex;flex-direction:column;gap:6px}
+.proj-kv{display:flex;gap:0;font-size:12px;line-height:1.5}
+.proj-k{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--accent);min-width:72px;padding-top:2px;flex-shrink:0;
+}
+.proj-v{color:var(--ink2);flex:1}
+
+.proj-tags{display:flex;gap:5px;flex-wrap:wrap}
+.proj-card-bottom{
+  padding:12px 22px;
+  display:flex;gap:7px;flex-wrap:wrap;
+  background:var(--bg2);
+}
+.proj-link{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);text-decoration:none;padding:4px 10px;
+  border:.5px solid var(--accent);border-radius:var(--r);
+  transition:all var(--t);display:inline-flex;align-items:center;gap:3px;
+}
+.proj-link:hover{background:var(--accent);color:#fff}
+.proj-link.vid{color:#B7440F;border-color:#B7440F}
+.proj-link.vid:hover{background:#B7440F;color:#fff}
+
+/* ─── SKILLS ─── */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.skill-group{background:var(--card);border:.5px solid var(--bd);border-radius:var(--rl);padding:20px 22px}
+.skill-group-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.skill-list{display:flex;flex-direction:column;gap:6px}
+.skill-item{font-size:13px;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.skill-dot{width:4px;height:4px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+/* ─── CONTACT ─── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media(max-width:600px){.contact-grid{grid-template-columns:1fr}}
+.contact-intro{font-size:16px;color:var(--ink2);line-height:1.8}
+.contact-links{display:flex;flex-direction:column;gap:10px}
+.contact-link{
+  display:flex;align-items:center;gap:14px;padding:14px 18px;
+  background:var(--card);border:.5px solid var(--bd);border-radius:var(--rl);
+  text-decoration:none;color:var(--ink);transition:all var(--t);
+}
+.contact-link:hover{border-color:var(--accent);background:var(--al)}
+.contact-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:2px}
+.contact-val{font-size:13px;color:var(--ink2)}
+
+footer{text-align:center;padding:36px 2rem;border-top:.5px solid var(--bd);font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:.06em}
+
+/* ─── LANGUAGE SWITCHING ─── */
+/* All [data-lang] elements hidden by default for zh, shown for en */
+[data-lang="zh"]{display:none}
+body.zh [data-lang="en"]{display:none!important}
+body.zh [data-lang="zh"]{display:revert!important}
+
+/* Project cards: en shown, zh hidden */
+.proj-card[data-lang="zh"]{display:none}
+body.zh .proj-card[data-lang="en"]{display:none}
+body.zh .proj-card[data-lang="zh"]{display:flex}
+
+/* Ensure inline elements display correctly */
+body.zh span[data-lang="zh"]{display:inline!important}
+body.zh span[data-lang="en"]{display:none!important}
+span[data-lang="zh"]{display:none}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:640px){
+  .nav-links{display:none}
+  nav{padding:0 1rem}
+  section{padding:60px 1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#top">TZ <span>·</span> 周天池</a>
+  <div class="nav-r">
+    <div class="nav-links">
+      <a href="#education" data-lang="en">Education</a>
+      <a href="#education" data-lang="zh">教育</a>
+      <a href="#experience" data-lang="en">Experience</a>
+      <a href="#experience" data-lang="zh">经历</a>
+      <a href="#projects" data-lang="en">Projects</a>
+      <a href="#projects" data-lang="zh">项目</a>
+      <a href="#skills" data-lang="en">Skills</a>
+      <a href="#skills" data-lang="zh">技能</a>
+      <a href="#contact" data-lang="en">Contact</a>
+      <a href="#contact" data-lang="zh">联系</a>
+    </div>
+    <button class="lang-btn" onclick="toggleLang()">
+      <span data-lang="en">中文</span><span data-lang="zh">EN</span>
+    </button>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☽</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <!-- LEFT: text -->
+  <div class="hero-left">
+    <div class="hero-tag">
+      <span data-lang="en">Available for Opportunities</span>
+      <span data-lang="zh">求职中</span>
+    </div>
+    <h1 data-lang="en">Tianchi<br><em>Zhou</em></h1>
+    <h1 data-lang="zh">周<em>天池</em></h1>
+    <p class="hero-sub" data-lang="en">M.Sc. student in Data Analytics & AI at HKBU. CS background. End-to-end data practitioner — from market research and model building to product launches and AI development.</p>
+    <p class="hero-sub" data-lang="zh">香港浸会大学数据分析与人工智能硕士在读，计算机科学本科背景。掌握数据全链路能力——从市场调研、建模分析到产品落地与 AI 开发。</p>
+
+    <div class="hero-actions">
+      <a class="btn btn-p" href="#projects" data-lang="en">View Projects →</a>
+      <a class="btn btn-p" href="#projects" data-lang="zh">查看项目 →</a>
+      <a class="btn btn-o" href="#contact" data-lang="en">Get In Touch</a>
+      <a class="btn btn-o" href="#contact" data-lang="zh">联系我</a>
+    </div>
+
+    <!-- Resume Downloads -->
+    <div class="resume-row">
+      <a class="btn btn-dl" href="Tianchi_Zhou_Resume_EN.pdf" download data-lang="en">↓ Resume (EN)</a>
+      <a class="btn btn-dl" href="Tianchi_Zhou_Resume_EN.pdf" download data-lang="zh">↓ 英文简历</a>
+      <a class="btn btn-dl" href="周天池_简历_CN.pdf" download data-lang="en">↓ Resume (CN)</a>
+      <a class="btn btn-dl" href="周天池_简历_CN.pdf" download data-lang="zh">↓ 中文简历</a>
+    </div>
+
+    <div class="hero-meta" style="margin-top:28px">
+      <div class="hero-meta-item">
+        <div class="lbl" data-lang="en">Location</div>
+        <div class="lbl" data-lang="zh">位置</div>
+        <div class="val" data-lang="en">Hong Kong, SAR</div>
+        <div class="val" data-lang="zh">香港特别行政区</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="lbl" data-lang="en">Currently</div>
+        <div class="lbl" data-lang="zh">当前状态</div>
+        <div class="val">M.Sc. DA&AI · HKBU</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="lbl">GitHub</div>
+        <div class="val"><a href="https://github.com/ZhouTianchi11" target="_blank" style="color:var(--accent);text-decoration:none">ZhouTianchi11</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: carousel -->
+  <div class="carousel" id="carousel">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-slide"><img src="photo5.jpg" alt="Graduation photo"></div>
+      <div class="carousel-slide"><img src="photo1.jpg" alt="Photo"></div>
+      <div class="carousel-slide"><img src="photo6.jpg" alt="Photo"></div>
+      <div class="carousel-slide"><img src="photo3.jpg" alt="Photo"></div>
+      <div class="carousel-slide"><img src="photo2.jpg" alt="Photo"></div>
+      <div class="carousel-slide"><img src="photo4.jpg" alt="Photo"></div>
+    </div>
+    <button class="carousel-btn prev" onclick="carouselMove(-1)">‹</button>
+    <button class="carousel-btn next" onclick="carouselMove(1)">›</button>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-label" data-num="01">
+      <span data-lang="en">Education</span><span data-lang="zh">教育经历</span>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-school" data-lang="en">Hong Kong Baptist University</div>
+        <div class="edu-school" data-lang="zh">香港浸会大学</div>
+        <div class="edu-degree" data-lang="en">M.Sc. in Data Analytics & Artificial Intelligence</div>
+        <div class="edu-degree" data-lang="zh">数据分析与人工智能（硕士）</div>
+        <div class="tags" style="margin-bottom:12px">
+          <span class="tag">Sep 2025 – Aug 2026</span>
+          <span class="tag tag-a" data-lang="en">In Progress</span>
+          <span class="tag tag-a" data-lang="zh">在读中</span>
+        </div>
+        <div style="font-size:12px;color:var(--ink3);font-family:'DM Mono',monospace;letter-spacing:.04em;line-height:1.8">
+          <span data-lang="en">AI · Python · Prompt AI · Database · Big Data · BI · Data Mining</span>
+          <span data-lang="zh">人工智能 · Python · 提示工程 · 数据库 · 大数据 · 商业智能 · 数据挖掘</span>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-school" data-lang="en">Dalian University of Foreign Languages</div>
+        <div class="edu-school" data-lang="zh">大连外国语大学</div>
+        <div class="edu-degree" data-lang="en">B.Sc. in Computer Science & Technology</div>
+        <div class="edu-degree" data-lang="zh">计算机科学与技术（本科）</div>
+        <div class="tags">
+          <span class="tag">Sep 2020 – Jun 2024</span>
+          <span class="tag tag-g">GPA 87/100</span>
+          <span class="tag tag-g" data-lang="en">Top 10%</span>
+          <span class="tag tag-g" data-lang="zh">前 10%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="alt-bg">
+  <div class="section-inner">
+    <div class="section-label" data-num="02">
+      <span data-lang="en">Work Experience</span><span data-lang="zh">实习经历</span>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Oct 2024 — Jun 2025</div>
+      <div>
+        <div class="exp-title" data-lang="en">Marketing Data Analyst</div>
+        <div class="exp-title" data-lang="zh">市场部数据分析师</div>
+        <div class="exp-co">
+          <span data-lang="en">Lege Group · Yusu Biotechnology</span>
+          <span data-lang="zh">乐格集团 · 羽素生物科技有限公司</span>
+          <span class="exp-ind" data-lang="en">FMCG</span>
+          <span class="exp-ind" data-lang="zh">快消品</span>
+        </div>
+        <ul class="exp-bullets">
+          <li data-lang="en">Led new-launch full-chain analytics; identified 5 high-potential tracks via data validation; delivered 10+ in-depth reports that directly informed positioning and pricing decisions.</li>
+          <li data-lang="zh">主导新品上市全链路数据分析，识别 5 个高潜力赛道，输出 10+ 份深度报告，直接支撑产品定位与定价决策。</li>
+          <li data-lang="en">Built GMV, price-tier and pricing-mechanism models; mined consumer review pain points; drove conversion uplift and USP reshaping across 3 product lines.</li>
+          <li data-lang="zh">搭建竞品 GMV、价盘及价格机制分析模型，挖掘消费者评论核心痛点，推动 3 款产品完成卖点重塑与转化提升。</li>
+          <li data-lang="en">Completed full product roadmap data support covering user personas and usage scenarios, forming a closed research–analysis–strategy–execution loop.</li>
+          <li data-lang="zh">独立完成产品 roadmap 全流程数据支撑，覆盖用户画像与使用场景，形成「调研—分析—策略—落地」完整闭环。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Apr 2024 — Jul 2024</div>
+      <div>
+        <div class="exp-title" data-lang="en">Network Security Engineer</div>
+        <div class="exp-title" data-lang="zh">网络安全工程师</div>
+        <div class="exp-co">
+          <span data-lang="en">China Unicom · Xinmin Branch</span>
+          <span data-lang="zh">中国联通沈阳市新民市兴隆堡分公司</span>
+          <span class="exp-ind" data-lang="en">Carrier</span>
+          <span class="exp-ind" data-lang="zh">运营商</span>
+        </div>
+        <ul class="exp-bullets">
+          <li data-lang="en">Handled 10+ network anomalies per day; optimized workflows via data review, reducing average repair time by 30%.</li>
+          <li data-lang="zh">日均处理 10+ 次网络异常，通过数据复盘优化运维流程，将故障平均修复时间缩短 30%。</li>
+          <li data-lang="en">Assisted 2 major network cutovers with zero incidents; distilled reusable O&M optimization schemes from security drill reviews.</li>
+          <li data-lang="zh">协助完成 2 次大型网络割接，实现零事故升级，沉淀运维数据优化方案。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Jan 2024 — Mar 2024</div>
+      <div>
+        <div class="exp-title" data-lang="en">Project Manager (Tech & Info Dept.)</div>
+        <div class="exp-title" data-lang="zh">科技信息部项目管理</div>
+        <div class="exp-co">
+          <span data-lang="en">CNPC Liaohe Oilfield · Shenyang Plant</span>
+          <span data-lang="zh">中国石油辽河油田沈阳采油厂</span>
+          <span class="exp-ind" data-lang="en">Oil & Gas</span>
+          <span class="exp-ind" data-lang="zh">石油/石化</span>
+        </div>
+        <ul class="exp-bullets">
+          <li data-lang="en">Full-cycle project data control via Gantt charts and site logs; flagged deviations in 3 sub-projects; delivered resource optimization to ensure 100% milestone completion.</li>
+          <li data-lang="zh">通过甘特图与施工日志追踪，定位 3 个子项目进度偏差，输出资源优化方案，保障交付节点 100% 达成。</li>
+          <li data-lang="en">Built supplier performance reconciliation model; resolved 2 material handover issues, reducing delay risk and forming a data-driven closed loop.</li>
+          <li data-lang="zh">搭建供应商履约数据核对模型，解决 2 项物料衔接问题，降低项目延误风险，形成完整数据驱动闭环。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Sep 2023 — Dec 2023</div>
+      <div>
+        <div class="exp-title" data-lang="en">Product Manager</div>
+        <div class="exp-title" data-lang="zh">产品经理</div>
+        <div class="exp-co">
+          <span data-lang="en">Liaoning Liaoyou Guangyuan Petroleum Engineering Group</span>
+          <span data-lang="zh">辽宁辽油广源石油工程集团有限公司</span>
+          <span class="exp-ind" data-lang="en">Oil & Gas</span>
+          <span class="exp-ind" data-lang="zh">石油/石化</span>
+        </div>
+        <ul class="exp-bullets">
+          <li data-lang="en">Consolidated 8 core requirements via frontline interviews and 6-month feedback analysis; produced optimization plans for refining auxiliary products.</li>
+          <li data-lang="zh">基于一线访谈与 6 个月用户反馈数据分析，梳理 8 类核心需求，制定产品优化方案。</li>
+          <li data-lang="en">Coordinated cross-functional delivery; launched 2 oilfield consumables on time, completing the full requirement–analysis–implementation–launch loop.</li>
+          <li data-lang="zh">推进产品迭代落地，保障 2 款油田耗材按时上线，完成需求—分析—落地—上线全闭环。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label" data-num="03">
+      <span data-lang="en">Projects</span><span data-lang="zh">项目经历</span>
+    </div>
+    <div class="projects-grid">
+
+      <!-- ── RAG CHATBOT EN ── -->
+      <div class="proj-card" data-lang="en">
+        <div class="proj-card-top">
+          <div class="proj-card-header">
+            <div class="proj-icon">🤖</div>
+            <span class="proj-period">Feb – Apr 2026</span>
+          </div>
+          <div class="proj-title">HKBU Learning Assistant Chatbot</div>
+          <div class="proj-highlights">
+            <div class="proj-kv"><span class="proj-k">Stack</span><span class="proj-v">Python · Gemma3:4b · Ollama · LlamaIndex · CustomTkinter</span></div>
+            <div class="proj-kv"><span class="proj-k">Method</span><span class="proj-v">Dual retrieval (Jaccard + Neural embedding), Query rewriting, Chain-of-Thought prompting</span></div>
+            <div class="proj-kv"><span class="proj-k">Result</span><span class="proj-v">Multi-turn retrieval accuracy +75%; neural retrieval avg precision 58.33% vs lexical 25.00%</span></div>
+            <div class="proj-kv"><span class="proj-k">Output</span><span class="proj-v">Streaming GUI with CoT visualization and real-time token tracking</span></div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag tag-a">RAG</span><span class="tag">NLP</span><span class="tag">LLM</span><span class="tag">CoT</span>
+          </div>
+        </div>
+        <div class="proj-card-bottom">
+          <a class="proj-link" href="https://github.com/ZhouTianchi11/HKBU-Study-Assistant-Chatbot.git" target="_blank">⌥ GitHub</a>
+          <a class="proj-link" href="HKBU_Study_Assistant_Chatbot_Report.pdf" target="_blank">↗ Report</a>
+          <a class="proj-link" href="HKBU_Study_Assistant_Chatbot_PPT.pdf" target="_blank">📊 Slides</a>
+          <a class="proj-link vid" href="https://lusun.com/v/MGpmKSsSr49" target="_blank">▶ Demo</a>
+        </div>
+      </div>
+
+      <!-- ── RAG CHATBOT ZH ── -->
+      <div class="proj-card" data-lang="zh">
+        <div class="proj-card-top">
+          <div class="proj-card-header">
+            <div class="proj-icon">🤖</div>
+            <span class="proj-period">2026.02 – 04</span>
+          </div>
+          <div class="proj-title">基于RAG的HKBU学习智能对话机器人</div>
+          <div class="proj-highlights">
+            <div class="proj-kv"><span class="proj-k">技术栈</span><span class="proj-v">Python · Gemma3:4b · Ollama · LlamaIndex · CustomTkinter</span></div>
+            <div class="proj-kv"><span class="proj-k">方法</span><span class="proj-v">双路检索（Jaccard + 神经嵌入）、查询重写、Chain-of-Thought 提示工程</span></div>
+            <div class="proj-kv"><span class="proj-k">结果</span><span class="proj-v">多轮检索精度提升 75%；神经检索平均精度 58.33% vs 词汇检索 25.00%</span></div>
+            <div class="proj-kv"><span class="proj-k">交付</span><span class="proj-v">GUI 支持流式交互、CoT 可视化与实时 Token 追踪</span></div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag tag-a">RAG</span><span class="tag">NLP</span><span class="tag">LLM</span><span class="tag">CoT</span>
+          </div>
+        </div>
+        <div class="proj-card-bottom">
+          <a class="proj-link" href="https://github.com/ZhouTianchi11/HKBU-Study-Assistant-Chatbot.git" target="_blank">⌥ GitHub</a>
+          <a class="proj-link" href="HKBU_Study_Assistant_Chatbot_Report.pdf" target="_blank">↗ 报告</a>
+          <a class="proj-link" href="HKBU_Study_Assistant_Chatbot_PPT.pdf" target="_blank">📊 PPT</a>
+          <a class="proj-link vid" href="https://lusun.com/v/MGpmKSsSr49" target="_blank">▶ 演示</a>
+        </div>
+      </div>
+
+      <!-- ── MEME DETECTION EN ── -->
+      <div class="proj-card" data-lang="en">
+        <div class="proj-card-top">
+          <div class="proj-card-header">
+            <div class="proj-icon">🔍</div>
+            <span class="proj-period">Feb – Apr 2026</span>
+          </div>
+          <div class="proj-title">Multimodal Harmful Meme Detection</div>
+          <div class="proj-highlights">
+            <div class="proj-kv"><span class="proj-k">Stack</span><span class="proj-v">Qwen2-VL-2B · LoRA · ChromaDB · BGE-Large-EN · Streamlit · DashScope API</span></div>
+            <div class="proj-kv"><span class="proj-k">Data</span><span class="proj-v">Facebook Hateful Memes — 2,778 class-balanced samples (1:1 Safe/Harmful oversampling)</span></div>
+            <div class="proj-kv"><span class="proj-k">Findings</span><span class="proj-v">Discovered "Context Overload" phenomenon; best config: LoRA-only (Macro F1: 0.5175, Acc: 58%)</span></div>
+            <div class="proj-kv"><span class="proj-k">Output</span><span class="proj-v">Interactive moderation platform with Chain-of-Thought explanations</span></div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag tag-a">VLM</span><span class="tag">LoRA</span><span class="tag">RAG</span><span class="tag">Fine-tuning</span>
+          </div>
+        </div>
+        <div class="proj-card-bottom">
+          <a class="proj-link" href="https://github.com/ZhouTianchi11/Multimodal-Harmful-Meme-Detection.git" target="_blank">⌥ GitHub</a>
+          <a class="proj-link" href="Multimodal_Harmful_Meme_Detection_System_Report.pdf" target="_blank">↗ Report</a>
+          <a class="proj-link" href="Multimodal_Harmful_Meme_Detection_System_PPT.pdf" target="_blank">📊 Slides</a>
+        </div>
+      </div>
+
+      <!-- ── MEME DETECTION ZH ── -->
+      <div class="proj-card" data-lang="zh">
+        <div class="proj-card-top">
+          <div class="proj-card-header">
+            <div class="proj-icon">🔍</div>
+            <span class="proj-period">2026.02 – 04</span>
+          </div>
+          <div class="proj-title">多模态有害梗图检测系统</div>
+          <div class="proj-highlights">
+            <div class="proj-kv"><span class="proj-k">技术栈</span><span class="proj-v">Qwen2-VL-2B · LoRA · ChromaDB · BGE-Large-EN · Streamlit · DashScope API</span></div>
+            <div class="proj-kv"><span class="proj-k">数据</span><span class="proj-v">Facebook Hateful Memes，2,778 平衡样本（1:1 过采样）</span></div>
+            <div class="proj-kv"><span class="proj-k">发现</span><span class="proj-v">揭示"上下文过载"现象；最优方案：仅 LoRA（Macro F1: 0.5175，准确率 58%）</span></div>
+            <div class="proj-kv"><span class="proj-k">交付</span><span class="proj-v">Streamlit 交互平台，输出可解释 CoT 判决结果</span></div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag tag-a">VLM</span><span class="tag">LoRA</span><span class="tag">RAG</span><span class="tag">微调</span>
+          </div>
+        </div>
+        <div class="proj-card-bottom">
+          <a class="proj-link" href="https://github.com/ZhouTianchi11/Multimodal-Harmful-Meme-Detection.git" target="_blank">⌥ GitHub</a>
+          <a class="proj-link" href="Multimodal_Harmful_Meme_Detection_System_Report.pdf" target="_blank">↗ 报告</a>
+          <a class="proj-link" href="Multimodal_Harmful_Meme_Detection_System_PPT.pdf" target="_blank">📊 PPT</a>
+        </div>
+      </div>
+
+      <!-- ── E-COMMERCE EN ── -->
+      <div class="proj-card" data-lang="en">
+        <div class="proj-card-top">
+          <div class="proj-card-header">
+            <div class="proj-icon">🛒</div>
+            <span class="proj-period">Mar – Apr 2026</span>
+          </div>
+          <div class="proj-title">E-Commerce System</div>
+          <div class="proj-highlights">
+            <div class="proj-kv"><span class="proj-k">Stack</span><span class="proj-v">MySQL · Python · CustomTkinter</span></div>
+            <div class="proj-kv"><span class="proj-k">DB Design</span><span class="proj-v">8 core tables (vendor, product, cart, orders, transactions); 1NF/2NF/3NF normalized</span></div>
+            <div class="proj-kv"><span class="proj-k">Features</span><span class="proj-v">Role-based GUI (Admin / Customer); transactions for cart & checkout consistency; stock auto-update</span></div>
+            <div class="proj-kv"><span class="proj-k">Testing</span><span class="proj-v">Full CRUD, constraint, cross-vendor transaction, and tag fuzzy search validation</span></div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag tag-a">MySQL</span><span class="tag">Python</span><span class="tag">GUI</span>
+          </div>
+        </div>
+        <div class="proj-card-bottom">
+          <a class="proj-link" href="https://github.com/ZhouTianchi11/Database-project.git" target="_blank">⌥ GitHub</a>
+          <a class="proj-link" href="E-Commerce_System_Report.pdf" target="_blank">↗ Report</a>
+          <a class="proj-link vid" href="https://lusun.com/v/NKauTDrhui0" target="_blank">▶ Demo</a>
+        </div>
+      </div>
+
+      <!-- ── E-COMMERCE ZH ── -->
+      <div class="proj-card" data-lang="zh">
+        <div class="proj-card-top">
+          <div class="proj-card-header">
+            <div class="proj-icon">🛒</div>
+            <span class="proj-period">2026.03 – 04</span>
+          </div>
+          <div class="proj-title">E-Commerce 系统</div>
+          <div class="proj-highlights">
+            <div class="proj-kv"><span class="proj-k">技术栈</span><span class="proj-v">MySQL · Python · CustomTkinter</span></div>
+            <div class="proj-kv"><span class="proj-k">数据库</span><span class="proj-v">8 张核心表（供应商、商品、购物车、订单、交易）；满足 1NF/2NF/3NF 规范</span></div>
+            <div class="proj-kv"><span class="proj-k">功能</span><span class="proj-v">双角色 GUI（管理员 / 客户）；购物车与结算数据一致性事务；库存自动更新</span></div>
+            <div class="proj-kv"><span class="proj-k">测试</span><span class="proj-v">完整 CRUD、约束验证、跨供应商交易记录、标签模糊搜索测试</span></div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag tag-a">MySQL</span><span class="tag">Python</span><span class="tag">GUI</span>
+          </div>
+        </div>
+        <div class="proj-card-bottom">
+          <a class="proj-link" href="https://github.com/ZhouTianchi11/Database-project.git" target="_blank">⌥ GitHub</a>
+          <a class="proj-link" href="E-Commerce_System_Report.pdf" target="_blank">↗ 报告</a>
+          <a class="proj-link vid" href="https://lusun.com/v/NKauTDrhui0" target="_blank">▶ 演示</a>
+        </div>
+      </div>
+
+      <!-- ── AI IMAGE GEN EN ── -->
+      <div class="proj-card" data-lang="en">
+        <div class="proj-card-top">
+          <div class="proj-card-header">
+            <div class="proj-icon">🎨</div>
+            <span class="proj-period">Oct – Dec 2025</span>
+          </div>
+          <div class="proj-title">AI Image Generation Models Research</div>
+          <div class="proj-highlights">
+            <div class="proj-kv"><span class="proj-k">Stack</span><span class="proj-v">PyTorch · Hugging Face · pytorch_fid</span></div>
+            <div class="proj-kv"><span class="proj-k">Models</span><span class="proj-v">VAE (led) · Conditional GAN · DDPM (UNet 25M params, 500 epochs on RTX 4060)</span></div>
+            <div class="proj-kv"><span class="proj-k">VAE Design</span><span class="proj-v">Conv encoder + transpose-conv decoder; reparameterization; Reconstruction Loss + KL Divergence</span></div>
+            <div class="proj-kv"><span class="proj-k">Results</span><span class="proj-v">VAE FID: 50.36 / 49.97 · GAN FID: 28.12 / 28.14 · DDPM FID: 33.93 / 35.75</span></div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag tag-a">VAE</span><span class="tag">GAN</span><span class="tag">DDPM</span><span class="tag">PyTorch</span>
+          </div>
+        </div>
+        <div class="proj-card-bottom">
+          <a class="proj-link" href="https://github.com/ZhouTianchi11/AI-Image-Generation-Model.git" target="_blank">⌥ GitHub</a>
+          <a class="proj-link" href="AI_Image_Generative_Models_Report.pdf" target="_blank">↗ Report</a>
+          <a class="proj-link" href="AI_Image_Generative_Models_PPT.pdf" target="_blank">📊 Slides</a>
+        </div>
+      </div>
+
+      <!-- ── AI IMAGE GEN ZH ── -->
+      <div class="proj-card" data-lang="zh">
+        <div class="proj-card-top">
+          <div class="proj-card-header">
+            <div class="proj-icon">🎨</div>
+            <span class="proj-period">2025.10 – 12</span>
+          </div>
+          <div class="proj-title">AI 图像生成模型研究与实现</div>
+          <div class="proj-highlights">
+            <div class="proj-kv"><span class="proj-k">技术栈</span><span class="proj-v">PyTorch · Hugging Face · pytorch_fid</span></div>
+            <div class="proj-kv"><span class="proj-k">模型</span><span class="proj-v">VAE（主导） · 条件 GAN · DDPM（UNet 25M 参数，500 轮，RTX 4060）</span></div>
+            <div class="proj-kv"><span class="proj-k">VAE设计</span><span class="proj-v">卷积编码器 + 转置卷积解码器；重参数化；重建损失 + KL 散度</span></div>
+            <div class="proj-kv"><span class="proj-k">结果</span><span class="proj-v">VAE FID: 50.36 / 49.97 · GAN FID: 28.12 / 28.14 · DDPM FID: 33.93 / 35.75</span></div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag tag-a">VAE</span><span class="tag">GAN</span><span class="tag">DDPM</span><span class="tag">PyTorch</span>
+          </div>
+        </div>
+        <div class="proj-card-bottom">
+          <a class="proj-link" href="https://github.com/ZhouTianchi11/AI-Image-Generation-Model.git" target="_blank">⌥ GitHub</a>
+          <a class="proj-link" href="AI_Image_Generative_Models_Report.pdf" target="_blank">↗ 报告</a>
+          <a class="proj-link" href="AI_Image_Generative_Models_PPT.pdf" target="_blank">📊 PPT</a>
+        </div>
+      </div>
+
+      <!-- ── SUBWAY EN ── -->
+      <div class="proj-card" data-lang="en">
+        <div class="proj-card-top">
+          <div class="proj-card-header">
+            <div class="proj-icon">🚇</div>
+            <span class="proj-period">Mar – Jun 2024</span>
+          </div>
+          <div class="proj-title">Subway Lines & Stations Visual Analysis</div>
+          <div class="proj-highlights">
+            <div class="proj-kv"><span class="proj-k">Stack</span><span class="proj-v">Python · Pandas · NumPy · Flask · ECharts</span></div>
+            <div class="proj-kv"><span class="proj-k">Data</span><span class="proj-v">Multi-source subway data — crawled, cleaned (missing values, format normalization)</span></div>
+            <div class="proj-kv"><span class="proj-k">Output</span><span class="proj-v">Interactive visualization system: route maps, station heatmaps, passenger-flow distribution</span></div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag">Flask</span><span class="tag">ECharts</span><span class="tag">Pandas</span>
+          </div>
+        </div>
+        <div class="proj-card-bottom" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.06em;padding:10px 22px">
+          <span data-lang="en">Undergraduate Thesis</span>
+        </div>
+      </div>
+
+      <!-- ── SUBWAY ZH ── -->
+      <div class="proj-card" data-lang="zh">
+        <div class="proj-card-top">
+          <div class="proj-card-header">
+            <div class="proj-icon">🚇</div>
+            <span class="proj-period">2024.03 – 06</span>
+          </div>
+          <div class="proj-title">热门城市地铁线路及站点可视化分析</div>
+          <div class="proj-highlights">
+            <div class="proj-kv"><span class="proj-k">技术栈</span><span class="proj-v">Python · Pandas · NumPy · Flask · ECharts</span></div>
+            <div class="proj-kv"><span class="proj-k">数据</span><span class="proj-v">多源地铁数据爬取与清洗（缺失值处理、格式标准化）</span></div>
+            <div class="proj-kv"><span class="proj-k">交付</span><span class="proj-v">交互式可视化系统：地铁线路图、站点热力图、客流分布动态图表</span></div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag">Flask</span><span class="tag">ECharts</span><span class="tag">Pandas</span>
+          </div>
+        </div>
+        <div class="proj-card-bottom" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.06em;padding:10px 22px">
+          本科毕业论文
+        </div>
+      </div>
+
+      <!-- ── PUBLICATION EN ── -->
+      <div class="proj-card" data-lang="en">
+        <div class="proj-card-top">
+          <div class="proj-card-header">
+            <div class="proj-icon">📄</div>
+            <span class="proj-period">Apr – Jun 2023</span>
+          </div>
+          <div class="proj-title">Publication: Sentiment Analysis of College Students' Attitudes</div>
+          <div class="proj-highlights">
+            <div class="proj-kv"><span class="proj-k">Venue</span><span class="proj-v">Hans Publishing (普刊·汉斯)</span></div>
+            <div class="proj-kv"><span class="proj-k">Angle</span><span class="proj-v">Online public opinion perspective on comprehensive quality assessment attitudes</span></div>
+            <div class="proj-kv"><span class="proj-k">Role</span><span class="proj-v">Data crawling and partial manuscript drafting</span></div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag">NLP</span><span class="tag">Sentiment Analysis</span><span class="tag">Web Crawling</span>
+          </div>
+        </div>
+        <div class="proj-card-bottom" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.06em;padding:10px 22px">
+          Published Paper
+        </div>
+      </div>
+
+      <!-- ── PUBLICATION ZH ── -->
+      <div class="proj-card" data-lang="zh">
+        <div class="proj-card-top">
+          <div class="proj-card-header">
+            <div class="proj-icon">📄</div>
+            <span class="proj-period">2023.04 – 06</span>
+          </div>
+          <div class="proj-title">普刊论文 | 网络舆情视角下大学生综合素质测评态度情感分析</div>
+          <div class="proj-highlights">
+            <div class="proj-kv"><span class="proj-k">发表</span><span class="proj-v">汉斯出版（Hans Publishing）</span></div>
+            <div class="proj-kv"><span class="proj-k">视角</span><span class="proj-v">网络舆情视角下大学生综合素质测评态度研究</span></div>
+            <div class="proj-kv"><span class="proj-k">分工</span><span class="proj-v">负责数据爬虫及论文部分撰写</span></div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag">NLP</span><span class="tag">情感分析</span><span class="tag">数据爬虫</span>
+          </div>
+        </div>
+        <div class="proj-card-bottom" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.06em;padding:10px 22px">
+          已发表论文
+        </div>
+      </div>
+
+    </div><!-- /projects-grid -->
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="alt-bg">
+  <div class="section-inner">
+    <div class="section-label" data-num="04">
+      <span data-lang="en">Skills</span><span data-lang="zh">技能</span>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title" data-lang="en">Data Processing</div>
+        <div class="skill-group-title" data-lang="zh">数据处理</div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-dot"></span>Python (Pandas / NumPy)</div>
+          <div class="skill-item"><span class="skill-dot"></span>SQL / MySQL</div>
+          <div class="skill-item"><span class="skill-dot"></span><span data-lang="en">Data Cleaning & Statistics</span><span data-lang="zh">数据清洗与统计分析</span></div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title" data-lang="en">Visualization</div>
+        <div class="skill-group-title" data-lang="zh">数据可视化</div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-dot"></span>ECharts · Flask</div>
+          <div class="skill-item"><span class="skill-dot"></span>Tableau · Power BI</div>
+          <div class="skill-item"><span class="skill-dot"></span>Excel</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title" data-lang="en">AI & Machine Learning</div>
+        <div class="skill-group-title" data-lang="zh">AI 与机器学习</div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-dot"></span>PyTorch · Deep Learning</div>
+          <div class="skill-item"><span class="skill-dot"></span>NLP · RAG · LoRA · Fine-tuning</div>
+          <div class="skill-item"><span class="skill-dot"></span>VAE · GAN · DDPM</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title" data-lang="en">Languages</div>
+        <div class="skill-group-title" data-lang="zh">语言能力</div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-dot"></span><span data-lang="en">Mandarin Chinese (Native)</span><span data-lang="zh">普通话（母语）</span></div>
+          <div class="skill-item"><span class="skill-dot"></span>English — IELTS 6.5 · CET-6</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label" data-num="05">
+      <span data-lang="en">Contact</span><span data-lang="zh">联系我</span>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-intro" data-lang="en">Open to data analyst, business analyst, and AI/data-related roles. Feel free to reach out via email or WeChat.</p>
+        <p class="contact-intro" data-lang="zh">正在寻找数据分析、商业分析或 AI 数据相关岗位，欢迎通过邮件或微信联系。</p>
+        <div style="margin-top:20px">
+          <a class="btn btn-dl" href="Tianchi_Zhou_Resume_EN.pdf" download data-lang="en" style="margin-right:8px;margin-bottom:8px;display:inline-flex">↓ Resume (EN)</a>
+          <a class="btn btn-dl" href="周天池_简历_CN.pdf" download data-lang="en" style="display:inline-flex">↓ Resume (CN)</a>
+          <a class="btn btn-dl" href="Tianchi_Zhou_Resume_EN.pdf" download data-lang="zh" style="margin-right:8px;margin-bottom:8px;display:inline-flex">↓ 英文简历</a>
+          <a class="btn btn-dl" href="周天池_简历_CN.pdf" download data-lang="zh" style="display:inline-flex">↓ 中文简历</a>
+        </div>
+      </div>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:tianchi_zhou@163.com">
+          <span style="font-size:18px">✉</span>
+          <div><div class="contact-lbl">Email</div><div class="contact-val">tianchi_zhou@163.com</div></div>
+        </a>
+        <a class="contact-link" href="https://github.com/ZhouTianchi11" target="_blank">
+          <span style="font-size:18px">⌥</span>
+          <div><div class="contact-lbl">GitHub</div><div class="contact-val">github.com/ZhouTianchi11</div></div>
+        </a>
+        <div class="contact-link">
+          <span style="font-size:18px">💬</span>
+          <div><div class="contact-lbl">WeChat</div><div class="contact-val">lala20020731</div></div>
+        </div>
+        <div class="contact-link">
+          <span style="font-size:18px">📱</span>
+          <div>
+            <div class="contact-lbl">Mobile</div>
+            <div class="contact-val" data-lang="en">+856 53792656</div>
+            <div class="contact-val" data-lang="zh">+86 18640293609</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p data-lang="en">© 2026 Tianchi Zhou · Hosted on GitHub Pages</p>
+  <p data-lang="zh">© 2026 周天池 · 托管于 GitHub Pages</p>
+</footer>
+
+<script>
+/* ── Language ── */
+function toggleLang(){
+  document.body.classList.toggle('zh');
+  localStorage.setItem('lang', document.body.classList.contains('zh') ? 'zh' : 'en');
+}
+
+/* ── Theme ── */
+function toggleTheme(){
+  const html = document.documentElement;
+  const dark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', dark ? '' : 'dark');
+  localStorage.setItem('theme', dark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = dark ? '☽' : '☀';
+}
+
+/* ── Carousel ── */
+let cur = 0;
+const total = 6;
+const track = document.getElementById('carouselTrack');
+const dotsEl = document.getElementById('carouselDots');
+let autoTimer;
+
+function buildDots(){
+  for(let i=0;i<total;i++){
+    const d=document.createElement('button');
+    d.className='carousel-dot'+(i===0?' active':'');
+    d.onclick=()=>goTo(i);
+    dotsEl.appendChild(d);
+  }
+}
+function goTo(n){
+  cur=(n+total)%total;
+  track.style.transform=`translateX(-${cur*100}%)`;
+  document.querySelectorAll('.carousel-dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+}
+function carouselMove(d){ goTo(cur+d); resetAuto(); }
+function resetAuto(){ clearInterval(autoTimer); autoTimer=setInterval(()=>goTo(cur+1),4000); }
+
+buildDots();
+resetAuto();
+
+/* ── Init ── */
+(function(){
+  if(localStorage.getItem('lang')==='zh') document.body.classList.add('zh');
+  if(localStorage.getItem('theme')==='dark'){
+    document.documentElement.setAttribute('data-theme','dark');
+    document.getElementById('themeBtn').textContent='☀';
+  }
+})();
+</script>
+</body>
+</html>
